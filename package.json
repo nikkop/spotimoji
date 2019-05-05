@@ -1,0 +1,23 @@
+{
+  "name": "spotimoji",
+  "version": "0.0.1",
+  "description": "Emoji visualisation of current played Spotify track",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikkop/spotimoji.git"
+  },
+  "author": "Nikola Pantic",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nikkop/spotimoji/issues"
+  },
+  "homepage": "https://github.com/nikkop/spotimoji#readme",
+  "dependencies": {},
+  "browserslist": [
+    "since 2017-06"
+  ]
+}
