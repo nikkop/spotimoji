@@ -18,8 +18,33 @@ const getAudioFeatures = async () => {
     const audioFeatures = await fetchData(
       `audio-features/${currentTrack.item.id}`
     ).then(res => res.json())
-    console.log(audioFeatures)
+    return audioFeatures
   }
 }
 
-getAudioFeatures()
+const showFeatures = async () => {
+  const audioFeatures = await getAudioFeatures()
+  const features = [
+    'acousticness',
+    'danceability',
+    'energy',
+    'instrumentalness',
+    'liveness',
+    'loudness',
+    'speechiness',
+    'tempo',
+    'valence',
+  ]
+  const featureValues = Object.entries(audioFeatures).filter(([feature]) =>
+    features.includes(feature)
+  )
+
+  const divEl = document.querySelector('#features')
+  featureValues.forEach(([feature, value]) => {
+    const el = document.createElement('p')
+    el.innerHTML = `${feature}: ${value}`
+    divEl.appendChild(el)
+  })
+}
+
+showFeatures()
