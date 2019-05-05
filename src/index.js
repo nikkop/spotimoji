@@ -1,4 +1,5 @@
 import emojis from './emojis'
+import style from './style.module.css'
 
 const { access_token, token_type, expires_in, state } = window.location.hash
   .slice(1)
@@ -23,33 +24,48 @@ const getAudioFeatures = async () => {
     return audioFeatures
   }
 }
-
 const showFeatures = async () => {
   const audioFeatures = await getAudioFeatures()
-  const features = [
+  console.log(audioFeatures)
+  const featureKeys = [
     'acousticness',
     'danceability',
     'energy',
     'instrumentalness',
     'valence',
   ]
-  const featureValues = Object.entries(audioFeatures).filter(([feature]) =>
-    features.includes(feature)
-  )
+  const features = Object.entries(audioFeatures)
+    .filter(([feature]) => featureKeys.includes(feature))
+    .map(([feature, value]) => ({
+      feature,
+      emoji: emojis[feature][Math.round(value)],
+      value,
+    }))
 
-  const divEl = document.querySelector('#features')
-  featureValues.forEach(([feature, value]) => {
-    const el = document.createElement('p')
-    el.innerHTML = `${feature}: ${value}`
+  const container = document.createElement('div')
+  container.classList.add(style.container)
+  document.body.appendChild(container)
 
-    const featureEmoji = emojis[feature]
-    if (featureEmoji) {
-      const emoji = featureEmoji[Math.round(value)]
-      el.innerHTML += emoji
-    }
-
-    divEl.appendChild(el)
+  const featureElements = ['feature', 'emoji', 'value'].map(type => {
+    const el = document.createElement('span')
+    el.classList.add(type)
+    return el
   })
+  container.append(...featureElements)
+
+  const renderFeature = ({ feature, value, emoji }) => {
+    featureElements[0].innerHTML = feature
+    featureElements[1].innerHTML = emoji
+    featureElements[2].innerHTML = value
+  }
+
+  let i = 0
+  setInterval(() => {
+    const n = features.length
+    const feature = features[((i % n) + n) % n]
+    renderFeature(feature, container)
+    i++
+  }, 1500)
 }
 
 showFeatures()
