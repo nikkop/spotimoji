@@ -1,3 +1,5 @@
+import emojis from './emojis'
+
 const { access_token, token_type, expires_in, state } = window.location.hash
   .slice(1)
   .split('&')
@@ -29,10 +31,6 @@ const showFeatures = async () => {
     'danceability',
     'energy',
     'instrumentalness',
-    'liveness',
-    'loudness',
-    'speechiness',
-    'tempo',
     'valence',
   ]
   const featureValues = Object.entries(audioFeatures).filter(([feature]) =>
@@ -43,6 +41,13 @@ const showFeatures = async () => {
   featureValues.forEach(([feature, value]) => {
     const el = document.createElement('p')
     el.innerHTML = `${feature}: ${value}`
+
+    const featureEmoji = emojis[feature]
+    if (featureEmoji) {
+      const emoji = featureEmoji[Math.round(value)]
+      el.innerHTML += emoji
+    }
+
     divEl.appendChild(el)
   })
 }
