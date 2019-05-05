@@ -21,6 +21,7 @@
     "since 2017-06"
   ],
   "devDependencies": {
+    "cssnano": "^4.1.10",
     "postcss-modules": "^1.4.1"
   }
 }
