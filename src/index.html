@@ -12,7 +12,7 @@
       const responseType = 'token'
       const redirectURI = 'http://localhost:1234/callback.html'
       const scope = 'user-read-playback-state user-read-playback-state'
-      const url = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${redirectURI}&scope=${scope}&response_type=${responseType}&state=123`
+      const url = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${redirectURI}&scope=${scope}&response_type=${responseType}`
       window.location.replace(url)
     </script>
   </body>
